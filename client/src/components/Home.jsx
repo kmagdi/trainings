@@ -1,0 +1,29 @@
+import React,{useState, useEffect} from 'react'
+import { Header } from "./header";
+import { About } from "./about";
+import { Kozpontok } from "./Kozpontok";
+import { Gallery } from "./gallery";
+import { Testimonials } from "./testimonials";
+import { Team } from "./Team";
+import { Contact } from "./contact";
+import JsonData from "../data/data.json";
+
+
+export const Home=()=>{
+    const [landingPageData, setLandingPageData] = useState({});
+
+    useEffect(() => {
+      setLandingPageData(JsonData);
+    }, []);
+    return(
+        <React.Fragment>
+            <Header data={landingPageData.Header} />
+            <Kozpontok />
+            <About data={landingPageData.About} />
+            <Gallery data={landingPageData.Gallery}/>
+            <Testimonials data={landingPageData.Testimonials} />
+            <Team data={landingPageData.Team} />
+            <Contact data={landingPageData.Contact} />
+        </React.Fragment>
+    )
+}
