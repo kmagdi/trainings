@@ -1,0 +1,28 @@
+
+.items{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:center;
+}
+#agazatok{
+    padding-bottom: 3px;
+}
+.all h3{
+    margin:0;
+}
+.font-awesome i{
+    cursor:pointer;
+}
+.font-awesome i:hover{
+    color:red;
+}
+
+#tanfolyam-list{
+    margin-top:50px;
+}
+.piros{
+    color:red;
+}
+.feher{
+    color:white;
+}

@@ -1,5 +1,5 @@
 import './navigation.css'
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 
 export const Navigation = (props) => {
@@ -25,7 +25,9 @@ export const Navigation = (props) => {
 
         <div className='collapse navbar-collapse' id='bs-example-navbar-collapse-1' >  
           <ul className='nav navbar-nav navbar-right'>
-            
+            <li>
+              <a href='#page-top' className='page-scroll' onClick={() =>window.location = '/#page-top'}><i style={{color:"blue"}} className="fas fa-home"></i></a>
+            </li>
             <li>
               <a href='#about' className='page-scroll' onClick={() =>window.location = '/#about'}>Rólunk</a>
             </li>
@@ -33,7 +35,7 @@ export const Navigation = (props) => {
               <a href='#intezmenyek' className='page-scroll' onClick={() =>window.location = '/#intezmenyek'}> Képzési központok </a>
             </li>
             <li>
-              <Link className='page-scroll' to="/agazatok">Tanfolyamok</Link>
+              <NavLink activeClassName="active" className='page-scroll' to="/agazatok">Tanfolyamok</NavLink>
             </li>
             <li>
               <a href='#portfolio' className='page-scroll' onClick={() =>window.location = '/#portfolio'}>Galéria</a>

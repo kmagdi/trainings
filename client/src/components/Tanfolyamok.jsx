@@ -1,4 +1,4 @@
-import * as React from "react";
+import React,{useState} from 'react';
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -10,8 +10,6 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import './Tanfolyamok.css'
@@ -28,34 +26,42 @@ const ExpandMore = styled((props) => {
 }));
 
 export const Tanfolyamok=(props)=>{
-  const [expanded, setExpanded] = React.useState(false);
+  const [expandedId, setExpandedId] = useState(-1);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleExpandClick = (i) => {
+    console.log(i)
+    setExpandedId(expandedId === i ? -1 : i);
   };
-console.log(props.data)
+console.log(props.data,props.filter)
   return (
       <div className="row ">
-         { props.data? props.data.map(obj=>(
-             <div className="col-lg-3 col-md-4 col-sm-6 col-12 ">
-    <Card className="myCard " sx={{ maxWidth: 345 }}>
-      <CardHeader 
+         { props.data? props.data.map((obj,i)=>(
+           (obj.agazat_id==props.filter && props.filter!=0) || props.filter=='0' ?
+             <div key={obj.id} className="col-md-4 col-sm-6 col-12 ">
+    <Card className="myCard " sx={{ maxWidth: 360 }}>
+      <div className="myCardHeader">
+      <CardHeader
       titleTypographyProps={{
-        fontSize: 16,
+        fontSize: 18,
+      }}
+      subheaderTypographyProps={{
+        fontSize: 18,
+        fontWeight: "bold",
       }}
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            <i className={obj.icon}></i>
           </Avatar>
         }
         action={
           <IconButton aria-label="settings">
-            <MoreVertIcon />
+            <MoreVertIcon sx={{fontSize:30,color:"red",fontWeight:"bold"}}/>
           </IconButton>
         }
         title={obj.megnevezes}
-        subheader={obj.idotartam+obj.idotartam_mertekegyseg}
+        subheader={obj.idotartam+" "+obj.idotartam_mertekegyseg}
       />
+      </div>
       <CardMedia
         component="img"
         height="194"
@@ -64,61 +70,28 @@ console.log(props.data)
       />
       <CardContent>
         <Typography className="myFont" variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+        A szakképesítés azonosító száma: <b>{obj.szam}</b>
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
         <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
+          expand={expandedId === i}
+          onClick={()=>handleExpandClick(i)}
+          aria-expanded={expandedId === i}
           aria-label="show more"
         >
-          <ExpandMoreIcon />
+          <ExpandMoreIcon sx={{fontSize:20,color:"red",fontWeight:"bold"}} />
         </ExpandMore>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={expandedId === i} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and
-            set aside for 10 minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
-            over medium-high heat. Add chicken, shrimp and chorizo, and cook,
-            stirring occasionally until lightly browned, 6 to 8 minutes.
-            Transfer shrimp to a large plate and set aside, leaving chicken and
-            chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes,
-            onion, salt and pepper, and cook, stirring often until thickened and
-            fragrant, about 10 minutes. Add saffron broth and remaining 4 1/2
-            cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and
-            peppers, and cook without stirring, until most of the liquid is
-            absorbed, 15 to 18 minutes. Reduce heat to medium-low, add reserved
-            shrimp and mussels, tucking them down into the rice, and cook again
-            without stirring, until mussels have opened and rice is just tender,
-            5 to 7 minutes more. (Discard any mussels that don’t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then
-            serve.
-          </Typography>
+          <Typography paragraph>A szakma rövid leírása:</Typography>
+          <Typography className="myFont" paragraph>{obj.leiras}</Typography>
         </CardContent>
       </Collapse>
     </Card>
     </div>
-         )) : 'loading'}
+       :""  )) : ''}
     </div>
   );
 }

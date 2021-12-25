@@ -4,7 +4,7 @@ const db=mysql.createConnection(configDb)
 
 const getTanfolyamok=(req,res) => {
     console.log('ok')
-    db.query('SELECT a.id,b.megnevezes,a.idotartam,a.idotartam_mertekegyseg,a.start_date_planned,c.name,a.foto FROM tanfolyamok a,szakmak b,intezmenyek c where a.szakma_id=b.id and a.intezmeny_id=C.id',
+    db.query('SELECT a.id,b.megnevezes,a.idotartam,a.idotartam_mertekegyseg,a.start_date_planned,c.name,a.foto,d.icon,b.szam,b.leiras,d.id as agazat_id FROM tanfolyamok a,szakmak b,intezmenyek c,agazatok d where a.szakma_id=b.id and a.intezmeny_id=C.id and d.id=b.agazat',
      (error, results)=> {
         if (error) 
             console.log(error)
