@@ -5,7 +5,6 @@ import { Kozpontok } from "./Kozpontok";
 import { Gallery } from "./gallery";
 import { Testimonials } from "./testimonials";
 import { Team } from "./Team";
-import { Contact } from "./contact";
 import JsonData from "../data/data.json";
 
 
@@ -23,7 +22,6 @@ export const Home=()=>{
             <Gallery data={landingPageData.Gallery}/>
             <Testimonials data={landingPageData.Testimonials} />
             <Team data={landingPageData.Team} />
-            <Contact data={landingPageData.Contact} />
         </React.Fragment>
     )
 }

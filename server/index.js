@@ -7,7 +7,8 @@ const app = express();
 const routerIntezmenyek=require('./routes/intezmenyek')
 const routerAgazatok=require('./routes/agazatok')
 const routerTanfolyamok=require('./routes/tanfolyamok')
-//const szakmak=require('./routes/szakmak')
+const routerJelentkezes=require('./routes/jelentkezes')
+const confirmation=require('./routes/confirm')
 
 app.use(express.urlencoded({ extended: false}))
 app.use(express.json())
@@ -16,6 +17,8 @@ app.use(cors());
 app.use('/api/intezmenyek',routerIntezmenyek)
 app.use('/api/agazatok',routerAgazatok)
 app.use('/api/tanfolyamok',routerTanfolyamok)
+app.use('/api/jelentkezes',routerJelentkezes) 
+app.use('/confirm',confirmation)
 
 //app.use('api/szakmak',szakmak)
 

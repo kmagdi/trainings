@@ -6,7 +6,7 @@ const initialState = {
   email: '',
   message: '',
 }
-export const Contact = (props) => {
+export const Kapcsolat = (props) => {
   const [{ name, email, message }, setState] = useState(initialState)
 
   const handleChange = (e) => {

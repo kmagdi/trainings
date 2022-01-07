@@ -4,7 +4,9 @@ import { Navigation } from "./components/navigation";
 import {Home} from "./components/Home"
 import {Footer} from "./components/Footer"
 import { Agazatok } from "./components/Agazatok";
-
+import { Kapcsolat } from "./components/Kapcsolat";
+import {Confirm} from "./components/Confirm";
+import JsonData from "./data/data.json";
 
 
 import SmoothScroll from "smooth-scroll";
@@ -16,6 +18,11 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 });
 
 const App = () => {
+  const [landingPageData, setLandingPageData] = useState({});
+
+  useEffect(() => {
+    setLandingPageData(JsonData);
+  }, []);
 
   return (
     <div>
@@ -23,8 +30,10 @@ const App = () => {
         <Navigation />
         <div className="content">
         <Routes>
+            <Route exact path="/confirm/:token" element={<Confirm />} />
             <Route exact path="/" element={<Home />} />
             <Route path="/agazatok" element={<Agazatok />} />
+            <Route path="/kapcsolat" element={<Kapcsolat  data={landingPageData.Contact} />} />
         </Routes>
         </div>
        

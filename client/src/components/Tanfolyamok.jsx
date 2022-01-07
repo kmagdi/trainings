@@ -13,6 +13,9 @@ import { red } from "@mui/material/colors";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import './Tanfolyamok.css'
+import 'react-responsive-modal/styles.css';
+import { Modal } from 'react-responsive-modal';
+import { MyForm } from './MyForm';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -27,6 +30,14 @@ const ExpandMore = styled((props) => {
 
 export const Tanfolyamok=(props)=>{
   const [expandedId, setExpandedId] = useState(-1);
+  const [open, setOpen] = useState(false);
+  const [openedTanfolyam, setOpenedTanfolyam] = useState({});
+
+  const onOpenModal = (obj) => {
+    setOpen(true);
+    setOpenedTanfolyam(obj)
+  }
+  const onCloseModal = () => setOpen(false);
 
   const handleExpandClick = (i) => {
     console.log(i)
@@ -36,7 +47,7 @@ console.log(props.data,props.filter)
   return (
       <div className="row ">
          { props.data? props.data.map((obj,i)=>(
-           (obj.agazat_id==props.filter && props.filter!=0) || props.filter=='0' ?
+           (obj.agazat_id===props.filter && props.filter!==0) || props.filter===0 ?
              <div key={obj.id} className="col-md-4 col-sm-6 col-12 ">
     <Card className="myCard " sx={{ maxWidth: 360 }}>
       <div className="myCardHeader">
@@ -54,8 +65,16 @@ console.log(props.data,props.filter)
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon sx={{fontSize:30,color:"red",fontWeight:"bold"}}/>
+          <IconButton aria-label="settings" onClick={()=>onOpenModal(
+            {"id":obj.id,
+            "megnevezes":obj.megnevezes,
+            "idotartam":obj.idotartam,
+            "mertekegyseg":obj.idotartam_mertekegyseg,
+            "szam":obj.szam }
+          )}
+          title="jelentkezés a tanfolyamra"
+          >
+            <MoreVertIcon sx={{fontSize:30,color:"red",fontWeight:"bold"}} />
           </IconButton>
         }
         title={obj.megnevezes}
@@ -92,6 +111,13 @@ console.log(props.data,props.filter)
     </Card>
     </div>
        :""  )) : ''}
+
+      <div>
+        <Modal open={open} onClose={onCloseModal} center>
+              <MyForm tanfolyam={openedTanfolyam}/>
+            </Modal>
+      </div>
+    
     </div>
   );
 }
